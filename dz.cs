@@ -16,6 +16,16 @@ app.MapPut("/{id}", (int id, OrderUpdateDto dto) =>
     buffer.Status = dto.Status;
     return Results.Ok(buffer);
 });
+
+app.MapDelete("/{id}", (int id) =>
+{
+    var order = repo.Find(ord => ord.Id == id);
+    if (order == null)
+        return Results.NotFound("Такого заказа нету");
+
+    repo.Remove(order);
+    return Results.Ok(order);
+});
 app.Run();
 
 class OrderUpdateDto
