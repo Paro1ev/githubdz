@@ -1,10 +1,13 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-Order order = new Order(1, "Вазелин", "Аптека Галоперидол", "Логинов К.Д", "Ленина 52", "Отправлен");
+List<Order> repo = new List<Order>()
+{
+    new Order(1, "Вазелин", "Аптека Галоперидол", "Логинов К.Д", "Ленина 52", "Отправлен")
+};
 
-app.MapGet("/", () => order);
-
+app.MapGet("/", () => repo);
+app.MapPost("", (Order ord) => repo.Add(ord));
 app.Run();
 
 
