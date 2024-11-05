@@ -7,9 +7,19 @@ List<Order> repo = new List<Order>()
 };
 
 app.MapGet("/", () => repo);
-app.MapPost("", (Order ord) => repo.Add(ord));
+app.MapPost("/", (Order ord) => repo.Add(ord));
+app.MapPut("/{id}", (int id) =>
+{
+
+});
 app.Run();
 
+class OrderUpdateDto
+{
+    string status;
+
+    public string Status { get => status; set => status = value; }
+}
 
 class Order 
 {
