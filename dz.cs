@@ -8,9 +8,13 @@ List<Order> repo = new List<Order>()
 
 app.MapGet("/", () => repo);
 app.MapPost("/", (Order ord) => repo.Add(ord));
-app.MapPut("/{id}", (int id) =>
+app.MapPut("/{id}", (int id, OrderUpdateDto dto) =>
 {
-
+    Order buffer = repo.Find(ord => ord.Id == id);
+    if (buffer == null)
+        return Results.NotFound("Такого заказа нету");
+    buffer.Status = dto.Status;
+    return Results.Ok(buffer);
 });
 app.Run();
 
